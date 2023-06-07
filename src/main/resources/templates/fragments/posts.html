@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+
+<body>
+	<div th:fragment="posts(posts)">
+		<main>
+			<div class="main-section">
+				<div class="container">
+					<div class="main-section-data">
+						<div class="row">
+							<div class="col-lg-3 col-md-4 pd-left-none no-pd">
+								<div class="main-left-sidebar no-margin">
+									<div class="user-data full-width">
+										<div class="user-profile">
+											<div class="username-dt">
+												<div class="usr-pic">
+													<img src="http://via.placeholder.com/100x100" alt="">
+												</div>
+											</div>
+											<!--username-dt end-->
+											<div class="user-specs">
+												<h3 sec:authorize="isAuthenticated()" sec:authentication="name">Username</h3>
+												<h3 sec:authorize="!isAuthenticated()">Visitante</h3>
+											</div>
+										</div>
+										<!--user-profile end-->
+										<ul class="user-fw-status">
+											<li>
+												<h4>Seguidores</h4>
+												<span sec:authorize="isAuthenticated()">0</span>
+												<span class="text-muted" sec:authorize="!isAuthenticated()">Desabilitado</span>
+											</li>
+											<li>
+												<h4>Seguindo</h4>
+												<span sec:authorize="isAuthenticated()">0</span>
+												<span class="text-muted" sec:authorize="!isAuthenticated()">Desabilitado</span>
+											</li>
+											<li sec:authorize="isAuthenticated()">
+												<a th:href="@{/logout}"><i class="fal fa-sign-in-alt fa-rotate-180"></i> Sair</a>
+											</li>
+										</ul>
+									</div>
+									<!--user-data end-->
+									<div class="tags-sec full-width">
+										<div class="cp-sec">
+											<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAyCAYAAACqNX6+AAAAAXNSR0IArs4c6QAAA35JREFUeF7tm+1xFDEMhpUSoAQoAUqAEqAEKAFKICWEEqAEKAFKgBKgBJhn5pxx9iRbu17deTPyDL/On3okvbI33Ei2qSxwM9VucjOSQCZzggSSQCazwGTbyQhJIJNZYLLtZIQkkMksMNl2MkIOAOSFiHxasc+vIvK505/5mNfbXhsdv3knMPr9FZGfIvJbRNi3p42u2VqDvXysO2gR8kpE1mziu4hYBixr/RGRJ57Tn/pYkftvxRy9rsC5Pf1r9d1zzeU6Z7bbAwiLtFIfkfGjZ53F75cAUpbES3EoAGntkEA4ELS19mFlCmwBjjIO6evtYwJCHiT8tfZFRN5MHCFla5ZTRTkB64alrJaOrNWPa0QIa1pRckgglhG36McIkKVjUEhQpJA2PVWepl09IGeV0opsUKq++yFbRJ1JtIpJC3lLP6w5ysa2iroVqez3l6PSe3kqi2ub9oB4qkw3oy1ACG1NEzQdoXzGQ5fNmiMKCPNyF8JBWk1zqumBvBeRO+VUmqdYh7HmiATiqfYOCeT5Kfw1T3ta1fPWBZNbMkBal8+9UxZ7taK1PseWlLVVQ870wxLP3k0dY5GPnylEqOXLk4TlkTyz0OeSQDzRYdmjl7Lc+rDoqGrPFg1hDCnrnbIT7iLlbcbySKKDKIkAwrz1uxpOg4NpzqPpmnY5PAQQYGg6QvgS9jTrIKQ8DBQBZKu3Mg5H0R5JDwEEg5K2LB2h5tcMjgcDxJMWtbkvapyOY43AZ+yuKYsJWzoCMO0JHw/EE2cCcq3Hxd2BtHSECNHuHyUtzAKE4oI9WS+9rdRbImSpW97IYc2zFLlV1Fm0pSPWMwXpigNcE0j5OAUMoqPXemny6jf1ArGlI9ohi37wWxSQ3p3A+kTQgnIYIC0d0Q5Yl8RRQHb1Vqeo77rmSMpiv573oQKnvjQmECMmR4HwyMgHKE/zPKuUeSKeTjx73FJqTxUhPGvzAarX6gtjpIbsahxnylLfpHoGqX7nZeO+uBiNEOblDxh6H39q/XhsQFbYXu364IV5DyAeHan1I4E85LI7EI+O1PqRQIKB9HRkqR8JJBhIT0eW+pFALgCkpSNL/UggK4GMVg05fsAC+d8RBowXMTSBRFh1YM4EMmC8iKEJJMKqA3MmkAHjRQxNIBFWHZgzgQwYL2JoAomw6sCcCWTAeBFDE0iEVQfm/A+tqQpCmn4JogAAAABJRU5ErkJggg==" 
+											width="100px" height="50px" alt="">
+											<p><i class="fal fa-copyright"></i> Copyright 2023</p>
+										</div>
+									</div>
+									<!--tags-sec end-->
+								</div>
+								<!--main-left-sidebar end-->
+							</div>
+							<div class="col-lg-9 col-md-8 no-pd">
+								<div class="main-ws-sec">
+									<div class="post-topbar" sec:authorize="hasRole('ROLE_USER')">
+										<div class="user-picy">
+											<img src="http://via.placeholder.com/100x100" alt="">
+										</div>
+										<div class="post-st">
+											<ul>
+												<li><a th:href="@{/createNewPost}"><span><i class="fal fa-plus-circle"></i></span>Novo post</a></li>
+											</ul>
+										</div>
+										<!--post-st end-->
+									</div>
+									<!--post-topbar end-->
+									<div class="posts-section">
+										<div class="post-bar" th:each="post : ${posts}">
+											<div class="post_topbar">
+												<div class="usy-dt">
+													<img src="https://cdn.dooca.store/1854/products/coracao-vermelho.jpeg?v=1634070004" width="50px" height="50px" alt="" />
+													<div class="usy-name">
+														<h3 th:text="${post.user.username}">Post Owner</h3>
+														<span th:text="'Postado em: ' + ${#dates.format(post.creationDate, ' dd MMMM yyyy')}"></span>
+													</div>
+												</div>
+												<div class="job_descp mt-3">
+													<h3 th:text="${post.title}">Post Title</h3>
+													<p th:text="${post.body}">Post Body</p>
+													<img th:src="${post.image}" width="100%"/>
+												</div>
+												<div class="job-status-bar">
+													<ul class="like-com">
+														<li>
+															<a th:href="@{'/post/' + ${post.id}}"><i class="fal fa-envelope-open-text"></i> Ver postagem</a>
+														</li>
+														<li>
+															<a href="#"><i class="fal fa-heart"></i> Favoritar</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+											<!--post-bar end-->
+											<!--post end-->
+										</div>
+										<!--posts-section end-->
+									</div>
+									<!--main-ws-sec end-->
+								</div>
+							</div>
+							<!-- main-section-data end-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</body>
+
+</html>

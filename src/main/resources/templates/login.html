@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+	<div th:replace="/fragments/header :: header"></div>
+	
+	<div class="container">
+	    <div th:if="${param.error}" class="alert alert-danger text-center" role="alert">
+	        <span>Usuário e/ou senha inválidos!</span>
+	    </div>
+	    <div th:if="${param.logout}">
+	        <p class="alert alert-success text-center"> Logout feito com sucesso!</p>
+	    </div>
+	
+	    <form th:action="@{/login}" method="post">
+	        <div class="mb-3">
+	            <input type="text" class="form-control" name="username" id="username" placeholder="Usuário" required="true" autofocus="true"/>
+	        </div>
+	        <div class="mb-3">
+	            <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required="true"/>
+	        </div>
+	        <div class="align-center">
+	            <input type="checkbox" id="remember-me" name="remember-me">
+	            <label for="remember-me">Permanecer conectado?</label>
+	        </div>
+	        <div>
+	            <input type="submit" class="btn btn-primary col-12" value="Login" style="cursor: pointer;"/>
+	        </div>
+	
+	    </form>
+	
+	</div>
+
+	<footer th:replace="/fragments/footer :: footer"></footer>
+</body>
+</html>

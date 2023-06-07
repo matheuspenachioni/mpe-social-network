@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<header th:fragment="header" class="mb-3">
+    <div class="container">
+		<div class="header-data">
+			<div class="logo">
+				<a href="index.html" title=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAAXNSR0IArs4c6QAAAaZJREFUWEftluFNwzAQhe+NACPACDACGYGOACOQEegIdAQyAh2BrtAR6AiHnmVHV+tsYoRofthSVcm1nefvvbsUstKBleqSLqzVmU6sE2sl0Lq+Z6wTayXQun7dGVPVJxG5ym41AThyTlVf8hsD2MbfHkTkrkDkJCI8h99heGc5e6dATFU/RIQPsGMDYFJVCv5yhKW9FP1asYqXG8wldYGtQ03YSCqqSsEUfjYALBXGfaS2iRB+LYzYSWkPYIjoSSTNB4EVYUPczz038TYnANeOsB1FOwQPHrF9spUPNzbP8zVhJcFm3hLjmfzkbmw9YaPJzH20kQTt/F8Rc+PGS3jCaEXKFCsvVSQz8p5OaszYDsDz0ozVhDEfbAGsqJQTZmSuzgZhh1iVoWWoqrXSzRiAfYnYo4iwt6VxBHBrD60Io+V231m4M2Gh8j0/S8JI6c1sCFYsEZYEl3pVJoyOhCaeDbfBMmPE/mkWp5422/BT9S0UVlo2usTosaoyT+k1xc7Nuf8VVpJ9yfl1/7u4JJnSszuxVlc6sU6slUDr+p6xTqyVQOv6b4oW7yGiHYU5AAAAAElFTkSuQmCC"
+				 width="38px" height="38px" alt=""></a>
+			</div>
+			<!--logo end-->
+			<div class="search-bar">
+				<form>
+					<input type="text" name="search" placeholder="Pesquisar...">
+					<button type="submit"><i class="fal fa-search"></i></button>
+				</form>
+			</div>
+			<!--search-bar end-->
+			<nav>
+				<ul>
+					<li>
+        				<a class="active" th:href="@{/}"><span><i class="fal fa-home"></i></span> Início</a>
+					</li>
+					<li sec:authorize="hasRole('ROLE_USER')">
+        				<a class="left" th:href="@{/createNewPost}"><span><i class="fal fa-plus-circle"></i></span> Novo Post</a>
+					</li>
+					<li sec:authorize="isAuthenticated()">
+						<a class="right" th:href="@{/logout}"><span><i class="fal fa-sign-in-alt fa-rotate-180"></i></span> Sair</a>
+					</li>
+					<li sec:authorize="!isAuthenticated()">
+						<a class="right" th:href="@{/login}"><span><i class="fal fa-sign-in-alt"></i></span> Login</a>
+					</li>
+					<li sec:authorize="!isAuthenticated()">
+						<a class="right" th:href="@{/signup}"><span><i class="fal fa-user-plus"></i></span> Sign Up</a>
+					</li>
+				</ul>
+			</nav>
+			<!--nav end-->
+			<div class="menu-btn">
+				<a href="#" title=""><i class="fal fa-bars mb-2"></i></a>
+			</div>
+		</div>
+		<!--header-data end-->
+    </div>
+</header>
+<!--header end-->
+
+</body>
+</html>

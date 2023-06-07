@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+	
+<div th:replace="/fragments/header :: header"></div>
+
+<div class="container">
+    <div class="post">
+        <div class="img">
+			<img th:src="${post.image}" width="50%"/>
+		</div>
+        <h2 th:text="${post.title}">Título</h2>
+        <h5 th:text="'Publicado em ' + ${#dates.format(post.creationDate, 'dd/MM/yyyy')} + ' por ' + ${post.user.username}">
+			Data da publicação e autor
+		</h5>
+        <p th:text="${post.body}">
+			Texto da publicação
+		</p>
+        <div class="align-right" sec:authorize="isAuthenticated()" th:if="${isOwner}">
+            <a th:href="@{'/editPost/{id}'(id=${post.id})}">
+                <button class="btn btn-info col-12 mb-3" type="button">Editar</button>
+            </a>
+        </div>
+    </div>
+    <div class="comments">
+        <div class="align-center">
+	        <a th:href="@{'/comment/{id}'(id=${post.id})}">
+	            <button class="btn btn-primary col-12 mb-3" type="button">Comentar</button>
+	        </a>
+	    </div>
+        <h3 class="text-center">Comentários</h3>
+        <div class="col-12" th:each="comment : ${post.comments}">
+            <h5 th:text="'Comentado em ' + ${#dates.format(post.creationDate, 'dd/MM/yyyy')} + ' por ' + ${comment.user.username}">
+				Data do comentário e autor
+			</h5>
+            <p th:text="${comment.body}">Texto do comentário</p>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/fragments/footer :: footer"></footer>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+
+<div th:replace="/fragments/header :: header"></div>
+
+<div class="container">
+    <form action="#" th:action="@{'/createNewPost'}" th:object="${post}" method="post">
+        <h3 th:if="!${post.id}">Nova publicação</h3>
+        <h3 th:if="${post.id}">Editar publicação</h3>
+        <div class="mb-3">
+            <label class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+                Title Error
+            </label>
+            <input type="text" class="form-control" th:field="*{title}" placeholder="Título"/>
+        </div>
+        <div class="mb-3">
+			<label class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">
+                Image Error
+            </label>
+			<input type="text" class="form-control" th:field="*{image}" placeholder="URL da imagem"/>
+		</div>
+        <div class="mb-3">
+            <label class="text-danger" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">
+                Body Error
+            </label>
+            <textarea th:field="*{body}" class="form-control" placeholder="Descrição"></textarea>
+        </div>
+        <div>
+            <button class="btn btn-primary col-12 mb-3" type="submit">Publicar</button>
+        </div>
+    </form>
+    <div th:if="${post.id}">
+        <a th:href="@{'/deletePost/{id}'(id=${post.id})}">
+            <button class="btn btn-danger col-12" type="button">Deletar</button>
+        </a>
+    </div>
+</div>
+
+
+<footer th:replace="/fragments/footer :: footer"></footer>
+
+</body>
+</html>
